@@ -1,4 +1,4 @@
-service: no-review-notifications-slack
+service: vrc-status-sync
 
 custom:
   defaultStage: dev
@@ -14,11 +14,10 @@ provider:
         path: ./
         platform: linux/amd64
   stage: ${opt:stage, self:custom.defaultStage}
-  environment:
-    ${file(./env.yml)}
+  environment: ${file(./env.yml)}
 
 functions:
-  no_review_notifications_slack:
+  vrc_status_sync:
     image:
       name: appImage
       command:
