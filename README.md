@@ -1,0 +1,2 @@
+# vrc_status_sync
+VRChatのステータスをgoogleカレンダーやdiscordの情報とリンクしたい
