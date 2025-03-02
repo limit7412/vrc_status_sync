@@ -5,8 +5,7 @@ import java.time.LocalDate
 
 object Usecase {
   def getTodayVRCEvents = {
-    // val calendarId = sys.env("GOOGLE_CALENDAR_ID")
-    val calendarId = "qazx7412@oxymoron.link"
+    val calendarId = sys.env("GOOGLE_CALENDAR_ID")
 
     val events = EventRepository
       .findByDay(calendarId, LocalDate.now())
