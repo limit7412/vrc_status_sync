@@ -24,8 +24,14 @@ import java.util.Arrays
 object repositoryInitializer {
   val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
   val jsonFactory = GsonFactory.getDefaultInstance()
+
+  val credentialPath = sys.env.getOrElse("ENV", "local") match {
+    case "local" => "google_credential.json"
+    case _       => "/var/runtime/google_credential.json"
+  }
+
   val credential = GoogleCredentials
-    .fromStream(new FileInputStream("google_credential.json"))
+    .fromStream(new FileInputStream(credentialPath))
     .createScoped(
       Arrays.asList(
         CalendarScopes.CALENDAR_READONLY,
