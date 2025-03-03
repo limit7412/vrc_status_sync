@@ -7,11 +7,13 @@ object Usecase {
   def setStatus(status: Status, statusDescription: String) = {
     val userID = sys.env("VRC_USER_ID")
 
-    val user = UserRepository.findByUserID(userID)
-    println("user: " + user.toString())
+    val finalStatus = if (status == null) {
+      val user = UserRepository.findByUserID(userID)
+      user.status
+    } else {
+      status
+    }
 
-    val res = UserRepository.updateStatus(userID, status, statusDescription)
-
-    println("res: " + res.toString())
+    UserRepository.updateStatus(userID, finalStatus, statusDescription)
   }
 }
