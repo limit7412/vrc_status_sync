@@ -11,29 +11,29 @@ import java.net.URLEncoder
 val userAgent = "test-application/1.00 qazx7412@oxymoron.link"
 
 object LoginTool {
-  def main(args: Array[String]): Unit = {
-    println("VRChat APIログインツール")
+  // def main(args: Array[String]): Unit = {
+  //   println("VRChat APIログインツール")
 
-    println("ユーザー名を入力してください:")
-    val rawUsername = StdIn.readLine().trim
-    println("パスワードを入力してください:")
-    val rawPassword = StdIn.readLine().trim
+  //   println("ユーザー名を入力してください:")
+  //   val rawUsername = StdIn.readLine().trim
+  //   println("パスワードを入力してください:")
+  //   val rawPassword = StdIn.readLine().trim
 
-    // URLエンコード
-    val username = URLEncoder.encode(rawUsername, "UTF-8")
-    val password = URLEncoder.encode(rawPassword, "UTF-8")
+  //   // URLエンコード
+  //   val username = URLEncoder.encode(rawUsername, "UTF-8")
+  //   val password = URLEncoder.encode(rawPassword, "UTF-8")
 
-    try {
-      val authToken = Auth.login(username, password)
-      println(s"認証成功！")
-      println(s"認証トークン: $authToken")
-      println("このトークンを環境変数 VRC_AUTH_TOKEN に設定してください。")
-      println("例: export VRC_AUTH_TOKEN=\"$authToken\"")
-    } catch {
-      case e: Exception =>
-        println(s"ログイン処理中にエラーが発生しました: ${e.getMessage}")
-    }
-  }
+  //   try {
+  //     val authToken = Auth.login(username, password)
+  //     println(s"認証成功！")
+  //     println(s"認証トークン: $authToken")
+  //     println("このトークンを環境変数 VRC_AUTH_TOKEN に設定してください。")
+  //     println("例: export VRC_AUTH_TOKEN=\"$authToken\"")
+  //   } catch {
+  //     case e: Exception =>
+  //       println(s"ログイン処理中にエラーが発生しました: ${e.getMessage}")
+  //   }
+  // }
 }
 
 object Auth {
