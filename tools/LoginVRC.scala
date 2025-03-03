@@ -6,6 +6,7 @@ import upickle.default._
 import sttp.model.Method
 import sttp.model.Uri
 import java.util.Base64
+import java.net.URLEncoder
 
 val userAgent = "test-application/1.00 qazx7412@oxymoron.link"
 
@@ -14,9 +15,13 @@ object LoginTool {
     println("VRChat APIログインツール")
 
     println("ユーザー名を入力してください:")
-    val username = StdIn.readLine().trim
+    val rawUsername = StdIn.readLine().trim
     println("パスワードを入力してください:")
-    val password = StdIn.readLine().trim
+    val rawPassword = StdIn.readLine().trim
+
+    // URLエンコード
+    val username = URLEncoder.encode(rawUsername, "UTF-8")
+    val password = URLEncoder.encode(rawPassword, "UTF-8")
 
     try {
       val authToken = Auth.login(username, password)
