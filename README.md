@@ -1,2 +1,8 @@
 # vrc_status_sync
-VRChatのステータスをgoogleカレンダーやdiscordの情報とリンクしたい
+VRChatのステータスをgoogleカレンダーなどの情報を自動同期するツール
+
+- scala3
+  - GraalVM
+  - scala-cli
+- aws lambda
+- serverless framework
