@@ -5,7 +5,7 @@ COPY ./ ./
 
 RUN scala-cli clean .
 RUN scala-cli config power true
-RUN scala-cli --power package --native-image -o bootstrap .
+RUN scala-cli --power package --native-image -o bootstrap . --main-class main
 RUN chmod +x bootstrap
 
 FROM public.ecr.aws/lambda/provided:latest
