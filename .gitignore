@@ -24,5 +24,6 @@ bootstrap
 .vscode/launch.json
 
 env.yml
+google_credential.json
 
 run.sh
