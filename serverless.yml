@@ -34,7 +34,7 @@ functions:
       command:
         - handler
     events:
-      - schedule: rate(5 minutes)
+      - schedule: rate(15 minutes)
 
 resources:
   Resources:
