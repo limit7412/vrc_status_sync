@@ -65,23 +65,21 @@ object AuthRepository {
       }
     }
 
-    // 2FA認証成功時はSet-Cookieヘッダーから認証トークンを抽出
+    // 2FA認証成功時はSet-Cookieヘッダーから認証トークンを直接抽出
     val responseJson = ujson.read(body)
     System.err.println(s"Response JSON: ${responseJson}")
     System.err.println(s"Response headers: ${twoFactorResponse.headers}")
+
     val token = twoFactorResponse.headers
-      .find(_.name.toLowerCase == "set-cookie")
+      .filter(_.name.toLowerCase == "set-cookie")
       .map(_.value)
-      .map(value => {
-        value
-          .split(";")
-          .find(_.startsWith("auth="))
-          .map(_.substring(5))
-          .getOrElse(
-            throw new Exception("auth cookie not found in Set-Cookie header")
-          )
-      })
-      .getOrElse(throw new Exception("Set-Cookie header not found"))
+      .find(_.startsWith("auth="))
+      .map(_.substring(5).takeWhile(_ != ';'))
+      .getOrElse(
+        throw new Exception("auth cookie not found in Set-Cookie header")
+      )
+
+    System.err.println(s"Extracted auth token: ${token}")
     token
   }
 }
