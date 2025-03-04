@@ -34,8 +34,16 @@ functions:
       command:
         - handler
     events:
-      # JSTで18:00~02:00の間で1時間ごとに実行
-      - schedule: cron(0 18-2 * * *)
+      # JSTで18:00~02:00の間で1時間ごとに実行（UTC 09:00~17:00）
+      - schedule: cron(0/60 9 * * ? *)
+      - schedule: cron(0/60 10 * * ? *)
+      - schedule: cron(0/60 11 * * ? *)
+      - schedule: cron(0/60 12 * * ? *)
+      - schedule: cron(0/60 13 * * ? *)
+      - schedule: cron(0/60 14 * * ? *)
+      - schedule: cron(0/60 15 * * ? *)
+      - schedule: cron(0/60 16 * * ? *)
+      - schedule: cron(0/60 17 * * ? *)
 
 resources:
   Resources:
