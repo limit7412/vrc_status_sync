@@ -21,6 +21,7 @@ import com.google.api.services.calendar.CalendarScopes
 import java.util.Collections
 import java.util.Arrays
 
+// TODO:GraalVMもしくはScala Nativeに対応する
 object repositoryInitializer {
   val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
   val jsonFactory = GsonFactory.getDefaultInstance()
