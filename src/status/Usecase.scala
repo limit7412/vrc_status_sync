@@ -47,6 +47,8 @@ object Usecase {
           null
         }
 
+        // TODO: イベント期間中以外はdiscordのplay nowをセットしたい
+
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val startDateTime = LocalDateTime.ofInstant(
           Instant.ofEpochMilli(currentStartTime.getValue()),
