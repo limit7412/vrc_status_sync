@@ -11,8 +11,8 @@ object Usecase {
 
     events.length > 0 match {
       case true => {
-        // 現在時刻を取得
-        val now = Instant.now().toEpochMilli()
+        val jst = ZoneId.of("Asia/Tokyo")
+        val now = LocalDateTime.now(jst).atZone(jst).toInstant().toEpochMilli()
 
         // 現在時刻に最も近いイベントを取得
         // 1. 現在進行中のイベント（開始時間 <= 現在 <= 終了時間）
@@ -52,7 +52,7 @@ object Usecase {
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val startDateTime = LocalDateTime.ofInstant(
           Instant.ofEpochMilli(currentStartTime.getValue()),
-          ZoneId.systemDefault()
+          jst
         )
         val formattedStartTime = startDateTime.format(timeFormatter)
 
