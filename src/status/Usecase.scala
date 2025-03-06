@@ -61,7 +61,7 @@ object Usecase {
         vrchat.Usecase.setStatus(newStatus, newStatusDescription)
       }
       case false => {
-        vrchat.Usecase.setStatus(null, "予定ないよ")
+        vrchat.Usecase.setStatus(null, "")
       }
     }
   }

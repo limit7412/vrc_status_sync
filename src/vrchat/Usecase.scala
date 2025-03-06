@@ -26,6 +26,24 @@ object Usecase {
       status
     }
 
-    UserRepository.updateStatus(token, userID, finalStatus, statusDescription)
+    val finalStatusDescription =
+      if (status == null && statusDescription == "") {
+        user.status match {
+          case Status.JOIN_ME => "何でも歓迎"
+          case Status.ACTIVE  => "予定ないよ"
+          case Status.ASK_ME  => "事情につき"
+          case Status.BUSY    => "事情につき"
+          case _              => ""
+        }
+      } else {
+        statusDescription
+      }
+
+    UserRepository.updateStatus(
+      token,
+      userID,
+      finalStatus,
+      finalStatusDescription
+    )
   }
 }
