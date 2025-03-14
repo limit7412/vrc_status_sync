@@ -32,7 +32,7 @@ object Usecase {
           case Status.JOIN_ME => "何でも歓迎"
           case Status.ACTIVE  => "予定ないよ"
           case Status.ASK_ME  => "事情につき"
-          case Status.BUSY    => "事情につき"
+          case Status.BUSY    => "取り込み中"
           case _              => ""
         }
       } else {
