@@ -27,17 +27,17 @@ object Usecase {
     }
 
     val finalStatusDescription =
-      if (
-        status == null &&
-        statusDescription == "" &&
-        !user.statusDescription.contains("OyasumiVR")
-      ) {
-        user.status match {
-          case Status.JOIN_ME => "何でも歓迎"
-          case Status.ACTIVE  => "予定ないよ"
-          case Status.ASK_ME  => "事情につき"
-          case Status.BUSY    => "取り込み中"
-          case _              => ""
+      if (status == null && statusDescription == "") {
+        if (user.statusDescription.contains("OyasumiVR")) {
+          user.statusDescription
+        } else {
+          user.status match {
+            case Status.JOIN_ME => "何でも歓迎"
+            case Status.ACTIVE  => "予定ないよ"
+            case Status.ASK_ME  => "事情につき"
+            case Status.BUSY    => "取り込み中"
+            case _              => ""
+          }
         }
       } else {
         statusDescription
