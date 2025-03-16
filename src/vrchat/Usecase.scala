@@ -27,7 +27,11 @@ object Usecase {
     }
 
     val finalStatusDescription =
-      if (status == null && statusDescription == "") {
+      if (
+        status == null &&
+        statusDescription == "" &&
+        !user.statusDescription.contains("OyasumiVR")
+      ) {
         user.status match {
           case Status.JOIN_ME => "何でも歓迎"
           case Status.ACTIVE  => "予定ないよ"
