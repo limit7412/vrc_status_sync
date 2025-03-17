@@ -27,7 +27,12 @@ object Usecase {
     }
 
     val finalStatusDescription =
-      if (status == null && statusDescription == "") {
+      if (
+        user.statusDescription.contains("OyasumiVR")
+        || user.statusDescription.contains("＃") // ステータスはエスケープされる
+      ) {
+        user.statusDescription
+      } else if (status == null && statusDescription == "") {
         user.status match {
           case Status.JOIN_ME => "何でも歓迎"
           case Status.ACTIVE  => "予定ないよ"
