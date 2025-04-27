@@ -2,13 +2,13 @@ package calendar
 
 import upickle.default._
 import java.time.LocalDate
-
+import java.time.ZoneId
 object Usecase {
   def getTodayVRCEvents = {
     val calendarId = sys.env("GOOGLE_CALENDAR_ID")
 
     val events = EventRepository
-      .findByDay(calendarId, LocalDate.now())
+      .findByDay(calendarId, LocalDate.now(ZoneId.of("Asia/Tokyo")))
       // // テスト用に指定の日付を設定
       // .findByDay(calendarId, LocalDate.of(2025, 3, 1))
       .filter(event => event.getSummary.contains("[vrc:"))
