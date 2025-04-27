@@ -14,7 +14,7 @@ object Usecase {
       .filter(event => event.getSummary.contains("[vrc:"))
       // 開始時刻が00:00:00以前のイベントは除外
       .filter(event =>
-        event.getStart().getDateTime().getValue() > System.currentTimeMillis()
+        event.getStart().getDateTime().getValue() > LocalDate.now(ZoneId.of("Asia/Tokyo")).atStartOfDay(ZoneId.of("Asia/Tokyo")).toInstant().toEpochMilli()
       )
       .map(event => {
         val summaryText = event.getSummary.split(":")(1).split("\\]")
