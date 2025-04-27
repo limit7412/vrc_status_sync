@@ -12,6 +12,10 @@ object Usecase {
       // // テスト用に指定の日付を設定
       // .findByDay(calendarId, LocalDate.of(2025, 3, 1))
       .filter(event => event.getSummary.contains("[vrc:"))
+      // 開始時刻が00:00:00以前のイベントは除外
+      .filter(event =>
+        event.getStart().getDateTime().getValue() > System.currentTimeMillis()
+      )
       .map(event => {
         val summaryText = event.getSummary.split(":")(1).split("\\]")
         val vrcStatus = summaryText(0)
