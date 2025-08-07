@@ -38,30 +38,45 @@ object Usecase {
         val isEventActive =
           currentStartTime.getValue() <= now && now <= currentEndTime.getValue()
 
-        // イベント期間中以外はnullを設定
-        val newStatus = if (isEventActive) {
-          vrchat.Status.values
+        if (isEventActive) {
+          val newStatus = vrchat.Status.values
             .find(_.value == currentStatus)
             .getOrElse(vrchat.Status.ACTIVE)
+
+          val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+          val startDateTime = LocalDateTime.ofInstant(
+            Instant.ofEpochMilli(currentStartTime.getValue()),
+            jst
+          )
+          val formattedStartTime = startDateTime.format(timeFormatter)
+          val newStatusDescription =
+            s"${formattedStartTime}～ ${currentEventName}"
+
+          vrchat.Usecase.setStatus(newStatus, newStatusDescription)
         } else {
-          null
+          // イベント期間中ではない場合、VRChatステータスをデフォルトに戻し、
+          // Discordステータスを更新する
+          vrchat.Usecase.setStatus(null, "")
+
+          val discordToken = sys.env.get("DISCORD_TOKEN")
+          discordToken match {
+            case Some(token) =>
+              discord.Repository.setPlayingStatus(token, "Play Now")
+            case None =>
+              println("DISCORD_TOKEN environment variable not set.")
+          }
         }
-
-        // TODO: イベント期間中以外はdiscordのplay nowをセットしたい
-
-        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-        val startDateTime = LocalDateTime.ofInstant(
-          Instant.ofEpochMilli(currentStartTime.getValue()),
-          jst
-        )
-        val formattedStartTime = startDateTime.format(timeFormatter)
-
-        val newStatusDescription = s"${formattedStartTime}～ ${currentEventName}"
-
-        vrchat.Usecase.setStatus(newStatus, newStatusDescription)
       }
       case false => {
+        // イベントがない場合はVRChatステータスをクリアし、Discordステータスを更新
         vrchat.Usecase.setStatus(null, "")
+        val discordToken = sys.env.get("DISCORD_TOKEN")
+        discordToken match {
+          case Some(token) =>
+            discord.Repository.setPlayingStatus(token, "Play Now")
+          case None =>
+            println("DISCORD_TOKEN environment variable not set.")
+        }
       }
     }
   }
